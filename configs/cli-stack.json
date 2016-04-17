@@ -1,0 +1,95 @@
+[
+	{
+		"command": "create",
+		"aliases": [
+			"new",
+			"init",
+			"make"
+		],
+		"childs": [
+			{
+				"command": "application",
+				"aliases": [
+					"app",
+					"porject",
+					"site"
+				]
+			},
+			{
+				"command": "component",
+				"aliases": [
+					"widget"
+				]
+			}
+		]
+	},
+	{
+		"command": "remove",
+		"aliases": [
+			"delete",
+			"unset"
+		],
+		"childs": [
+			{
+				"command": "application",
+				"aliases": [
+					"app",
+					"porject",
+					"site"
+				]
+			},
+			{
+				"command": "component",
+				"aliases": [
+					"widget"
+				]
+			}
+		]
+	},
+	{
+		"command": "move",
+		"aliases": [
+			"delete",
+			"unset"
+		],
+		"childs": [
+			{
+				"command": "application",
+				"aliases": [
+					"app",
+					"porject",
+					"site"
+				]
+			},
+			{
+				"command": "component",
+				"aliases": [
+					"widget"
+				]
+			}
+		]
+	},
+	{
+		"command": "xe",
+		"aliases": [
+			"delete",
+			"unset"
+		],
+		"childs": [
+			{
+				"command": "application",
+				"aliases": [
+					"app",
+					"porject",
+					"site"
+				]
+			},
+			{
+				"command": "component",
+				"aliases": [
+					"widget"
+				]
+			}
+		]
+	}
+]
