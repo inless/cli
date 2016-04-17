@@ -10,7 +10,7 @@ const _to = process.cwd();
 
 
 module.exports = function() {
-	this.add('unpack', (type, resolve, reject)=> {
+	this.add('unpack', (resolve, reject, type)=> {
 		if(!nfs.existsSync(path.resolve(_from, type))) {
 			reject(`wrong type: ${type}`);
 		} else {
@@ -30,12 +30,12 @@ module.exports = function() {
 			);
 		}
 	});
-	this.add('read json', (name, resolve, reject)=> {
+	this.add('read json', (resolve, reject, name)=> {
 		fs.readJson(name, (error, data)=> {
 			error ? reject(error.toString()) : resolve(data);
 		});
 	});
-	this.add('write json', (name, data, resolve, reject)=> {
+	this.add('write json', (resolve, reject, name, data)=> {
 		fs.outputJson(name, data, (error)=> {
 			error ? reject(error.toString()) : resolve(data);
 		});

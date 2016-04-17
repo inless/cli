@@ -26,7 +26,7 @@ var Actions = (function() {
 				if(typeof this.actions[action] !== 'function') {
 					reject(`wrong action!`);
 				} else {
-					this.actions[action].apply(this, params.concat([resolve, reject]));
+					this.actions[action].apply(this, [resolve, reject].concat(params));
 				}
 			}).catch((error)=> {
 				cli.error(`in action ${action}: ${error}`);

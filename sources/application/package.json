@@ -4,13 +4,27 @@
   "description": "Application",
   "main": "index.js",
   "inless": {
-    "librares" : [],
-    "plugins" : [],
-    "components" : [],
-    "apis" : [],
-    "routes" : [],
-    "modificators" : [],
-    "ui-kits" : []
+    "access": {
+      "5": "signed user",
+      "8": "any user"
+    },
+    "dependencies": {
+      "components" : {},
+      "librares" : {},
+      "plugins" : {},
+      "apis" : {},
+      "ui-kits" : {}
+    },
+    "modificators" : [
+      "home"
+    ],
+    "routes": [
+      {
+        "name": "home",
+        "path": "/",
+        "access": "8"
+      }
+    ]
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,7 +35,5 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "fs": "0.0.2"
-  }
+  "dependencies": {}
 }
