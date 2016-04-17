@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "inless": "bin/inless.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/inless/cli.git"
@@ -19,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/inless/cli/issues"
   },
-  "homepage": "https://github.com/inless/cli#readme"
+  "homepage": "https://github.com/inless/cli#readme",
+  "dependencies": {
+    "cli": "^0.11.2",
+    "damerau-levenshtein-git": "^1.0.2"
+  }
 }
