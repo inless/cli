@@ -25,6 +25,10 @@
   "homepage": "https://github.com/inless/cli#readme",
   "dependencies": {
     "cli": "^0.11.2",
-    "damerau-levenshtein-git": "^1.0.2"
+    "damerau-levenshtein-git": "^1.0.2",
+    "fs": "0.0.2",
+    "fs-extra": "^0.27.0",
+    "npm": "^3.8.6",
+    "path": "^0.12.7"
   }
 }

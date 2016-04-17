@@ -1,15 +1,28 @@
 
+var cli = require('cli');
 const dl = require('damerau-levenshtein-git');
+
+
 
 var Cli = (function() {
 	var Class = function(stack) {
 		this.stack = stack || [];
 	};
 	Class.prototype = {
+		start(cb) {
+			cb = cb || function() {};
+			var options = cli.parse({
+				// port: ['p', 'Listen on this port', 'number', 8080]
+			});
+			cli.main((args, options)=> {
+				var query = this.normalize(args);
+				cb.call(cli, query);
+			});
+		},
 		normalize(args, _stack, command) {
 			args = args || [];
 			_stack = _stack || this.stack;
-			command = command || '';
+			command = command || [];
 			if(!args.length) {
 				return command;
 			} else {
@@ -29,7 +42,11 @@ var Cli = (function() {
 				}).reduce((a,b)=> {
 					return b.correspond > a.correspond ? b : a;
 				});
-				return this.normalize(args.slice(1), param.childs, `${command} ${param.command}`);
+				if(param.childs) {
+					return this.normalize(args.slice(1), param.childs, command.concat([param.command]));
+				} else {
+					return command.concat([param.command]).concat(args.slice(1));
+				}
 			}
 		}
 	};

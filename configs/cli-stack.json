@@ -1,94 +1,39 @@
 [
 	{
-		"command": "create",
-		"aliases": [
-			"new",
-			"init",
-			"make"
-		],
+		"command": "init",
+		"aliases": [ "new", "create", "make" ],
 		"childs": [
 			{
 				"command": "application",
-				"aliases": [
-					"app",
-					"porject",
-					"site"
-				]
+				"aliases": [ "app", "porject", "site" ]
 			},
 			{
 				"command": "component",
-				"aliases": [
-					"widget"
-				]
+				"aliases": [ "widget" ]
 			}
 		]
 	},
 	{
 		"command": "remove",
-		"aliases": [
-			"delete",
-			"unset"
-		],
+		"aliases": [ "delete", "unset" ],
 		"childs": [
 			{
 				"command": "application",
-				"aliases": [
-					"app",
-					"porject",
-					"site"
-				]
+				"aliases": [ "app", "porject", "site" ]
 			},
 			{
 				"command": "component",
-				"aliases": [
-					"widget"
-				]
+				"aliases": [ "widget" ]
 			}
 		]
 	},
 	{
-		"command": "move",
-		"aliases": [
-			"delete",
-			"unset"
-		],
+		"command": "add",
+		"aliases": [ "push", "insert" ],
 		"childs": [
 			{
-				"command": "application",
-				"aliases": [
-					"app",
-					"porject",
-					"site"
-				]
-			},
-			{
 				"command": "component",
-				"aliases": [
-					"widget"
-				]
-			}
-		]
-	},
-	{
-		"command": "xe",
-		"aliases": [
-			"delete",
-			"unset"
-		],
-		"childs": [
-			{
-				"command": "application",
-				"aliases": [
-					"app",
-					"porject",
-					"site"
-				]
-			},
-			{
-				"command": "component",
-				"aliases": [
-					"widget"
-				]
+				"aliases": [ "widget" ]
 			}
 		]
 	}
