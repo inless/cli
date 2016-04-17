@@ -1,0 +1,23 @@
+{
+  "name": "inles-cli",
+  "version": "1.0.0",
+  "description": "Command line interface for inless",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inless/cli.git"
+  },
+  "keywords": [
+    "inless",
+    "cli"
+  ],
+  "author": "tuxubuntu@mail.ru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inless/cli/issues"
+  },
+  "homepage": "https://github.com/inless/cli#readme"
+}
