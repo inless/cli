@@ -10,31 +10,43 @@
 			{
 				"command": "component",
 				"aliases": [ "widget" ]
+			},
+			{
+				"command": "plugin",
+				"aliases": [  ]
+			},
+			{
+				"command": "library",
+				"aliases": [  ]
+			},
+			{
+				"command": "ui-kit",
+				"aliases": [  ]
+			},
+			{
+				"command": "route",
+				"aliases": [  ]
+			},
+			{
+				"command": "modificator",
+				"aliases": [  ]
+			},
+			{
+				"command": "library",
+				"aliases": [  ]
 			}
 		]
 	},
 	{
 		"command": "remove",
-		"aliases": [ "delete", "unset" ],
-		"childs": [
-			{
-				"command": "application",
-				"aliases": [ "app", "porject", "site" ]
-			},
-			{
-				"command": "component",
-				"aliases": [ "widget" ]
-			}
-		]
+		"aliases": [ "delete", "unset" ]
 	},
 	{
 		"command": "add",
-		"aliases": [ "push", "insert" ],
-		"childs": [
-			{
-				"command": "component",
-				"aliases": [ "widget" ]
-			}
-		]
+		"aliases": [ "push", "insert" ]
+	},
+	{
+		"command": "restore",
+		"aliases": [ "reinstall", "reload", "update", "upgrade" ]
 	}
 ]

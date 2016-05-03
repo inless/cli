@@ -1,39 +1,36 @@
 {
-  "name": "inless-app",
-  "version": "1.0.0",
-  "description": "Application",
-  "main": "index.js",
-  "inless": {
-    "access": {
-      "5": "signed user",
-      "8": "any user"
-    },
-    "dependencies": {
-      "components" : {},
-      "librares" : {},
-      "plugins" : {},
-      "apis" : {},
-      "ui-kits" : {}
-    },
-    "modificators" : [
-      "home"
-    ],
-    "routes": [
-      {
-        "name": "home",
-        "path": "/",
-        "access": "8"
-      }
-    ]
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "inless",
-    "application"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {}
+	"name": "inless-app",
+	"version": "1.0.0",
+	"description": "Application",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node index.js"
+	},
+	"keywords": [
+		"inless",
+		"application"
+	],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {},
+	"inless": {
+		"version": "1.0.0",
+		"dependencies": {
+			"file://../plugin01/": ["superPlugin"]
+		},
+		"routes": [
+			{
+				"name": "home",
+				"path": "/",
+				"access": ""
+			}
+		],
+		"access": {
+			"admin": ["moderator"],
+			"moderator": ["user"],
+			"user": ["any"],
+			"any": []
+		}
+	}
 }

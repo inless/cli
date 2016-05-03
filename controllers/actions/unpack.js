@@ -11,32 +11,30 @@ const _to = process.cwd();
 
 module.exports = function() {
 	this.add('unpack', (resolve, reject, type)=> {
-		if(!nfs.existsSync(path.resolve(_from, type))) {
-			reject(`wrong type: ${type}`);
-		} else {
-			fs.copy(
-				path.resolve(_from, type), 
-				path.resolve(_to), 
-				{
-					clobber: false
-				},
-				(err)=> {
-					if(err) {
-						reject(err.toString());
-					} else {
-						resolve('success!');
+		var Path = path.resolve(_from, type);
+		nfs.exists(Path, (exists)=> {
+			if(exists) {
+				fs.copy(
+					path.resolve(_from, type), 
+					path.resolve(_to), 
+					{
+						clobber: false
+					},
+					(err)=> {
+						if(err) {
+							reject(err.toString());
+						} else {
+							resolve('success!');
+						}
 					}
-				}
-			);
-		}
+				);
+			} else {
+				reject(`wrong type: ${type}`);
+			}
+		})
 	});
-	this.add('read json', (resolve, reject, name)=> {
-		fs.readJson(name, (error, data)=> {
-			error ? reject(error.toString()) : resolve(data);
-		});
-	});
-	this.add('write json', (resolve, reject, name, data)=> {
-		fs.outputJson(name, data, (error)=> {
+	this.add('clear', (resolve, reject)=> {
+		fs.remove(path.resolve('./*'), (error, data)=> {
 			error ? reject(error.toString()) : resolve(data);
 		});
 	});

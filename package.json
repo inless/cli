@@ -28,7 +28,14 @@
     "damerau-levenshtein-git": "^1.0.2",
     "fs": "0.0.2",
     "fs-extra": "^0.27.0",
+    "git-download": "0.0.2",
+    "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
+    "ncp": "^2.0.0",
+    "nodegit": "^0.12.2",
     "npm": "^3.8.6",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "request": "^2.72.0",
+    "unzip": "^0.1.11"
   }
 }

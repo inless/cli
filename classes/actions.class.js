@@ -21,15 +21,17 @@ var Actions = (function() {
 		run(action, params) {
 			action = action || '';
 			params = params || [];
-			cli.debug(`run task: ${action}, ${params.length ? 'with params: '+params.join(', ') : 'without params'}.`);
+			cli.debug(`run task: "${action}", ${params.length ? 'with params: '+params.join(', ') : 'without params'}.`);
 			return new Promise((resolve, reject)=> {
 				if(typeof this.actions[action] !== 'function') {
-					reject(`wrong action!`);
+					reject('wrong action!');
 				} else {
 					this.actions[action].apply(this, [resolve, reject].concat(params));
 				}
 			}).catch((error)=> {
-				cli.error(`in action ${action}: ${error}`);
+				error = `in action "${action}" error: ${error}`;
+				cli.error(error);
+				return Promise.reject(error);
 			});
 		}
 	};

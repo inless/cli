@@ -11,23 +11,63 @@ var action = new Actions();
 action.use(require('./actions/unpack.js'));
 action.use(require('./actions/npm.js'));
 
+// init app
+// restore local
+// add name url
 
-cli.start(function(command) {
+// remove name
+// run mode
+// test test_name
+
+// TODO: must use "git-download" module for download modules
+
+
+
+0?0:cli.start(function(command) {
+	console.log('>', command);
 	switch(command[0]) {
 		case 'init':
 			action.run('unpack', command.slice(1)).then((data)=> {
-				action.run('npm init').then((data)=> {
-					action.run('npm install').then((data)=> {
-						this.ok('success');
-					});
-				});
+				return action.run('npm install');
+			}).then((data)=> {
+				return action.run('reinstall dependencies');
+			}).then((data)=> {
+				console.log('complete');
+			}).catch((err)=> {
+				console.trace(err);
+			});
+		break;
+		case 'restore':
+			(command[1] == 'local' ?
+				action.run('reinstall dependencies') :
+				action.run('npm install').then((data)=> {
+					return action.run('reinstall dependencies');
+				})
+			).then((data)=> {
+				console.log(data);
+			}).catch((err)=> {
+				console.trace(err);
 			});
 		break;
 		case 'add':
-			action.run('npm add', command.slice(1)).then((data)=> {
+			action.run('install module', [command[2], command[1]]).then((data)=> {
 				console.log(data);
+			}).catch((err)=> {
+				console.trace(err);
 			});
 		break;
+		case 'remove':
+			action.run('npm remove', command.slice(1)).then((data)=> {
+				console.log('success');
+			}).catch((err)=> {
+				console.trace(err);
+			});
+		break;
+		default:
+			cli.wrong(`wrong command: ${command.join(' ')}`);
 	}
 });
+
+
+
 
