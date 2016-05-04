@@ -15,7 +15,7 @@
 	"license": "ISC",
 	"dependencies": {},
 	"inless": {
-		"version": "1.0.0",
+		"core": "1.0.0",
 		"dependencies": {}
 	}
 }

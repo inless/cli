@@ -1,0 +1,7 @@
+{
+	"REST": "/REST",
+	"RPC": "/RPC",
+	"data": "/inless/data",
+	"style": "/bundle.css",
+	"script": "/bundle.js"
+}

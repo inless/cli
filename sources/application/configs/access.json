@@ -1,0 +1,6 @@
+{
+	"admin": ["moderator"],
+	"moderator": ["user"],
+	"user": ["any"],
+	"any": []
+}

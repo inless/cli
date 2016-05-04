@@ -1,0 +1,7 @@
+[
+	{
+		"name": "home",
+		"path": "/",
+		"access": "any"
+	}
+]

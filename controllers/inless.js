@@ -12,6 +12,7 @@ action.use(require('./actions/unpack.js'));
 action.use(require('./actions/npm.js'));
 
 // init app
+// restore
 // restore local
 // add name url
 
@@ -19,11 +20,14 @@ action.use(require('./actions/npm.js'));
 // run mode
 // test test_name
 
-// TODO: must use "git-download" module for download modules
+// TODO: check if not exists directory 'node_modules/inless_dependencies' make it.
+// TODO: must use "git-download" module for download modules (only for ssh://...)
+// TODO: remake README.md from dependecies
 
 
 
-0?0:cli.start(function(command) {
+0?0:
+cli.start(function(command) {
 	console.log('>', command);
 	switch(command[0]) {
 		case 'init':

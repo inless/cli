@@ -19,7 +19,7 @@ var exec = require('child_process').exec;
 var normalize = function(url) {
 	url = url.toLowerCase().replace(/\/$/gi, '');
 	var branch = 'master', name = crypto.createHash('md5').update(url).digest('hex'), type = 'wrong';
-	if(new RegExp('^git\:\/\/', 'gi').test(url)) {
+	if((/\^git\:\/\//gi).test(url)) {
 		type = 'https';
 		url = url
 			.replace(/\^git\:\/\//gi, 'https://')
@@ -41,7 +41,7 @@ var Stack = (function(){
 	var Class = function(action) {
 		this._stack = [];
 		this._action = action;
-		this.version = '1.0.0';
+		this.core = '1.0.0';
 	}
 	Class.prototype = {
 		add(url) {
@@ -60,7 +60,7 @@ var Stack = (function(){
 								if(err) {
 									reject(err);
 								} else {
-									if(data['inless'] && data['inless']['version'] == self.version) {
+									if(data['inless'] && data['inless']['core'] == self.core) {
 										var deps = [];
 										for(var i in data['inless']['dependencies']) {
 											if(!fss.existsSync(
@@ -75,7 +75,7 @@ var Stack = (function(){
 										}
 										resolve(deps);
 									} else {
-										reject('wrong package in '+address.name);
+										reject(`wrong core version in ${address.url} (${address.name})`);
 									}
 								}
 							});
@@ -174,8 +174,8 @@ var Stack = (function(){
 
 
 module.exports = function() {
-	this.add('get package', (resolve, reject)=> {
-		var Path = path.resolve(_to, 'package.json');
+	this.add('get package', (resolve, reject, _path)=> {
+		var Path = path.resolve(_path || _to, 'package.json');
 		fs.exists(Path, function(exists) {
 			if(exists) {
 				fs.readJson(Path, function (err, packageObj) {
@@ -217,7 +217,7 @@ module.exports = function() {
 		var install = ()=> {
 			var stack = new Stack(this);
 			stack.add(url);
-			stack.install()
+			return stack.install()
 				.then((data)=> {
 					resolve(data);
 				})
@@ -227,14 +227,14 @@ module.exports = function() {
 		}
 		if(name) {
 			this.run('get package')
-			.then((data)=> {
-				if(data['inless'] && data['inless']['dependencies']) {
-					if(data['inless']['dependencies'][address.url]) {
-						data['inless']['dependencies'][address.url].push(name);
+			.then((pkg)=> {
+				if(pkg['inless'] && pkg['inless']['dependencies']) {
+					if(!!pkg['inless']['dependencies'][address.url]) {
+						resolve([]);
 					} else {
-						data['inless']['dependencies'][address.url] = [name];
+						pkg['inless']['dependencies'][address.url] = name;
 					}
-					return this.run('set package', [data]);
+					return this.run('set package', [pkg]);
 				} else {
 					reject('wrong package.json');
 				}

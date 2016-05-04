@@ -15,22 +15,10 @@
 	"license": "ISC",
 	"dependencies": {},
 	"inless": {
-		"version": "1.0.0",
+		"core": "1.0.0",
 		"dependencies": {
-			"file://../plugin01/": ["superPlugin"]
-		},
-		"routes": [
-			{
-				"name": "home",
-				"path": "/",
-				"access": ""
-			}
-		],
-		"access": {
-			"admin": ["moderator"],
-			"moderator": ["user"],
-			"user": ["any"],
-			"any": []
+			"file://../plugin01": "superPlugin",
+			"file://../route01": "homeRoute"
 		}
 	}
 }
