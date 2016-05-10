@@ -1,6 +1,9 @@
 {
-	"admin": ["moderator"],
-	"moderator": ["user"],
-	"user": ["any"],
-	"any": []
+	"default": "any",
+	"levels": {
+		"admin": ["moderator"],
+		"moderator": ["user"],
+		"user": ["any"],
+		"any": []
+	}
 }

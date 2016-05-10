@@ -1,1 +1,2 @@
-console.log(':)');
+require("babel-register");
+require('./tmp/app.js');
