@@ -18,7 +18,7 @@ var exec = require('child_process').exec;
 
 var normalize = function(url) {
 	url = url.toLowerCase().replace(/\/$/gi, '');
-	var branch = 'master', name = crypto.createHash('md5').update(url).digest('hex'), type = 'wrong';
+	var branch = 'master', name, type = 'wrong';
 	if((/\^git\:\/\//gi).test(url)) {
 		type = 'https';
 		url = url
@@ -30,6 +30,7 @@ var normalize = function(url) {
 		url = url
 			.replace(/^(local|file)\:\/\//gi, '')
 	}
+	name = crypto.createHash('md5').update(url).digest('hex');
 	return {
 		name: name, 
 		type: type, 
