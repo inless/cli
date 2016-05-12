@@ -1,7 +1,7 @@
 {
-	"name": "inless-plugin",
+	"name": "inless-component",
 	"version": "1.0.0",
-	"description": "Plugin inless",
+	"description": "Component inless",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +16,7 @@
 	"dependencies": {},
 	"inless": {
 		"core": "1.0.0",
+		"type": "component",
 		"dependencies": {}
 	}
 }

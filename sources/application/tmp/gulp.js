@@ -8,9 +8,9 @@ import { rename, piperStyle, counter } from './gulp.less.js';
 
 
 gulp.task('styles', ['less'], ()=> {
-	return gulp.src('./static/*.css')
-		.pipe(concat('build.css'))
-		.pipe(gulp.dest('./static'));
+	// return gulp.src('./static/*.css')
+	// 	.pipe(concat('build.css'))
+	// 	.pipe(gulp.dest('./static'));
 });
 
 gulp.task('clear', ['styles'], ()=> {
@@ -20,18 +20,21 @@ gulp.task('clear', ['styles'], ()=> {
 
 gulp.task('less', ()=> {
 	return gulp.src(
-			path.join(
-				__dirname, 
-				'..', 
-				'node_modules', 
-				'inless_dependencies', 
-				'*', 
-				'styles', 
-				'index.less'
-			))
+			[
+				path.join(
+					__dirname, 
+					'..', 
+					'node_modules', 
+					'inless_dependencies', 
+					'*', 
+					'style.less'
+				)
+			]
+		)
 		.pipe(piperStyle)
 		.pipe(less())
-		.pipe(rename)
+		// .pipe(rename)
+		.pipe(concat('build.css'))
 		.pipe(gulp.dest('./static'))
 });
 
