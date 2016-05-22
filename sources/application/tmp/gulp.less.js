@@ -17,7 +17,7 @@ export const piperStyle = through.obj((file, enc, cb)=> {
 			cb(null, file);
 		break;
 		case "modificator":
-			file.contents = new Buffer(`[data-inlessId="${name}"] { ${file.contents.toString(enc)} }`);
+			file.contents = new Buffer(`[data-mod~="${name}"] { ${file.contents.toString(enc)} }`);
 			cb(null, file);
 		break;
 		default:
@@ -29,4 +29,5 @@ export const rename = through.obj((file, enc, cb)=> {
 	file.path = file._newName;
 	cb(null, file);
 });
+
 

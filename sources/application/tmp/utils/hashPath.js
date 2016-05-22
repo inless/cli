@@ -1,4 +1,7 @@
-import crypto from 'crypto';
+
+
+import md5 from './md5.js';
+
 export default (url, is_url)=> {
 	url = url.toLowerCase().replace(/\/$/gi, '');
 	var branch = 'master', name, type = 'wrong';
@@ -13,6 +16,6 @@ export default (url, is_url)=> {
 		url = url
 			.replace(/^(local|file)\:\/\//gi, '')
 	}
-	name = crypto.createHash('md5').update(url).digest('hex');
+	name = md5(url);
 	return is_url ? url : name;
 }

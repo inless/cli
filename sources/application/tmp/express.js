@@ -6,6 +6,7 @@ import multer from 'multer';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import session from './session.js';
+import router from './router.middleware.js';
 
 var servConfig = require('../configs/server.json');
 
@@ -58,18 +59,7 @@ app.use((req, res, next) => {
 app.use(express.static('static'));
 app.use(express.static('bundles'));
 
-
-app.get('/', (req, res) => {
-	res.redirect('/test.html');
-});
-
-
-// TODO must be removed
-
-app.get('/test/:session', (req, res) => {
-	req.session.accessLevel = req.params['session']||'any';
-	res.end(`now you have "${req.session.accessLevel}" accessLevel.`);
-});
+app.use(router);
 
 
 // app.use((req, res, next) => {

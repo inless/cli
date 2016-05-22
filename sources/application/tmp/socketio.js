@@ -8,8 +8,15 @@ export default (app)=> {
 	})); 
 	server.on('connection', (socket)=> {
 		console.log('>>', socket.handshake.session);
-		socket.emit('event', {a:222});
-		socket.on('message', (data)=> {
+		socket.on('2way', (data)=> {
+			socket.emit('2way', {
+				id: data.id,
+				title: 'hello world',
+				redirect: null,
+				data: {
+					hello: `world ${Math.random()}`
+				}
+			});
 			console.log(data);
 		});
 		socket.on('close', ()=> {
