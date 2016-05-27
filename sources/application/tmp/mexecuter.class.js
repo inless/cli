@@ -1,10 +1,6 @@
 import { match } from 'react-router';
 import { getParams } from 'react-router/lib/PatternUtils.js';
 
-// var routes = Symbol('routes');
-// var storage = Symbol('storage');
-// var routes = 'routes';
-
 class MExecuter {
 	constructor(routes) {
 		this.routes = routes;
