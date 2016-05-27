@@ -2,8 +2,10 @@ import fs from 'fs';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Routes from './routes.js';
+
+import ME from './mexecuter.class.js';
 import {minify} from 'html-minifier';
-import { RouterContext, Route, match } from 'react-router';
+import { RouterContext, Route } from 'react-router';
 import {getParams} from 'react-router/lib/PatternUtils.js';
 import express from 'express';
 
@@ -12,9 +14,10 @@ let middleware = require('../layout/middleware.js').default;
 const template = fs.readFileSync('./layout/template.html').toString();
 
 var router = express.Router();
-var storage = {};
 
-var render = function(layout, params, isminify = false) {
+var singletone = require('./singletone.js');
+
+var render = (layout, params, isminify = false)=> {
 	var escapeHtml = function(text) {
 		var map = {
 			'&': '&amp;',
@@ -47,8 +50,8 @@ var mixins = [
 			}
 			return ret;
 		},
-		getInitialState: function() {
-			return storage[this.props.location.dataId]||{};
+		getInitialState() {
+			return this.props.location[preData];
 		}
 	}
 ];
@@ -64,82 +67,49 @@ var routes = (
 	</Route>
 );
 
+
+var mwr = singletone['ME'] ? singletone['ME'] : singletone['ME'] = new ME(routes);
+
+var preData = Symbol('preData');
+
 router.use((req, res, next)=> {
-	req.state = {};
-	let dataId = (Math.random()*1e8|0).toString(32);
-	storage[dataId] = {};
-	setTimeout(()=> {
-		if(storage[dataId]) {
-			delete storage[dataId];
-		}
-	}, 60*1000);
-	match({ routes: routes, location: req.url }, (error, redirectLocation, renderProps)=> {
-		if (error) {
-			console.error(error.message);
-			res.end('Server error');
-			delete storage[dataId];
-		} else if (redirectLocation) {
-			res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-			delete storage[dataId];
-		} else if (renderProps) {
-			renderProps.location.dataId = dataId;
-			var redirect = false;
-			var title = 'inless Application';
-			req.params = {};
-			renderProps.routes.forEach((route)=> {
-				req.params = Object.assign(req.params, getParams(route.path, renderProps.location.pathname));
-			});
-			var promises = renderProps.routes.map((route)=> {
-				// TODO: fix this promise (race condition)
-				return new Promise((resolve, reject)=> {
-					var _res = {
-						title,
-						setState(key, value) {
-							storage[dataId][key] = value;
-						},
-						setData(key, value) {
-							storage[dataId][key] = value;
-						},
-						redirect(url) {
-							redirect = url;
-							title = this.title;
-							resolve();
-						},
-						end(error) {
-							title = this.title;
-							error ? reject(error) : resolve();
-						}
-					}
-					route.middleware(req, _res);
-				});
-			});
-			Promise.all(promises).then(()=> {
-				if(redirect) {
-					res.redirect(302, redirect);
-					delete storage[dataId];
-				} else {
-					var content = ReactDOM.renderToStaticMarkup/*.renderToString*/(
-						<RouterContext {...renderProps} />
-					);
-					var xScript = `<script type="text/javascript" charset="utf-8">window[Symbol.for('preData')] = ${JSON.stringify(storage[dataId])};</script>
-						<script type="text/javascript" charset="utf-8" src="${'/bundle.js'}"></script>`;
-					var xStyle = `<link rel="stylesheetx" type="text/css" href="${'/bundle.css'}"></link>`;
-					var html = render(template, {
-						title: title,
-						script: xScript,
-						style: xStyle,
-						'yield': content
-					}, true);
-					res.end(html);
-					delete storage[dataId];
-				}
-			}).catch((error)=> {
-				console.error(error);
-				res.end('Server error');
-			});
+	let renderProps;
+	mwr.test(req.url).then((data)=> {
+		renderProps = data;
+		return mwr.middlewares(req, renderProps);
+	}).then((data)=> {
+		if(data.redirect) {
+			res.redirect(302, data.redirect);
 		} else {
-			res.end('Not found');
-			delete storage[dataId];
+			renderProps.location[preData] = data.store;
+			var xContent = <RouterContext {...renderProps} />;
+			var xScript = (
+				<div>
+					<script type="text/javascript" charSet="utf-8" dangerouslySetInnerHTML={{__html: `window[Symbol.for('preData')] = ${JSON.stringify(data.store)};`}}/>
+					<script type="text/javascript" async="async" defer="defer" charSet="utf-8" src={'/bundle.js'}/>
+				</div>
+			);
+			var xStyle = (
+				<link rel="stylesheetx" type="text/css" href={'/bundle.css'}></link>
+			);
+			var html = render(template, {
+				title: data.title,
+				script: ReactDOM.renderToStaticMarkup(xScript),
+				style: ReactDOM.renderToStaticMarkup(xStyle),
+				'yield': ReactDOM.renderToStaticMarkup(xContent)/*.renderToString*/
+			}, true);
+			res.end(html);
+		}
+	}).catch((error)=> {
+		if(typeof error == 'number') {
+			switch(error) {
+				case 404:
+					next();
+				break;
+			}
+		} else {
+			console.error(error);
+			res.sendStatus(500).end('Server error');
 		}
 	});
 });

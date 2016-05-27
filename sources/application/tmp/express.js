@@ -61,6 +61,10 @@ app.use(express.static('bundles'));
 
 app.use(router);
 
+app.use((req, res)=> {
+	res.sendStatus(404).end('Not Found');
+});
+
 
 // app.use((req, res, next) => {
 // 	res.sendStatus(400);
