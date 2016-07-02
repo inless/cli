@@ -13,10 +13,5 @@
 	],
 	"author": "",
 	"license": "ISC",
-	"dependencies": {},
-	"inless": {
-		"core": "1.0.0",
-		"type": "library",
-		"dependencies": {}
-	}
+	"dependencies": {}
 }

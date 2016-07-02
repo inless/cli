@@ -37,7 +37,7 @@ var mixins = [
 			this.history.pushState(null, url, query);
 		},
 		getInitialState() {
-			let url = `${this.props.location.pathname}${this.props.location.search}${this.props.location.hash}`;
+			let url = window.location.href;
 			if(!this[inited]) {
 				this[inited] = true;
 				preData.on('data', (data)=> {
@@ -45,12 +45,14 @@ var mixins = [
 						this.setState(data);
 					}
 				});
-				return preData.base(url);
+				// return preData.base(url);
 			}
 			return preData.base(url);
 		},
 		componentDidUpdate() {
-			preData.load(`${this.props.location.pathname}${this.props.location.search}${this.props.location.hash}`);
+			let url = window.location.href;
+			// `${this.props.location.pathname}${this.props.location.search}${this.props.location.hash}`
+			preData.load(url);
 		},
 		componentDidMount() {
 			this[mount] = true;

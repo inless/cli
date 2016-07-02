@@ -59,6 +59,7 @@ app.use((req, res, next) => {
 app.use(express.static('static'));
 app.use(express.static('bundles'));
 
+
 app.use(router);
 
 app.use((req, res)=> {
