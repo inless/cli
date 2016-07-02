@@ -24,15 +24,19 @@
   },
   "homepage": "https://github.com/inless/cli#readme",
   "dependencies": {
-    "cli": "^0.11.2",
-    "damerau-levenshtein-git": "^1.0.2",
-    "fs": "0.0.2",
-    "fs-extra": "^0.27.0",
+    "cli": "0.11.2",
+    "graceful-js": "1.0.0",
+    "damerau-levenshtein-git": "1.0.2",
     "git-download": "0.0.2",
-    "ncp": "^2.0.0",
-    "path": "^0.12.7",
-    "request": "^2.72.0",
-    "semver": "^5.2.0",
-    "unzip": "^0.1.11"
+    "inquirer": "1.1.0",
+    "ncp": "2.0.0",
+    "request": "2.72.0",
+    "semver": "5.2.0",
+    "unzip": "0.1.11"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2016": "^6.11.0",
+    "babel-preset-react": "^6.11.1"
   }
 }

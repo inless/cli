@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-require('../controllers/inless.js');
+require('../lib/core.js');

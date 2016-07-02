@@ -24,9 +24,9 @@ action.use(require('./actions/npm.js'));
 // TODO: must use "git-download" module for download modules (only for ssh://...)
 // TODO: remake README.md from dependecies
 
+require('./ui.js');
 
-
-0?0:
+1?0:
 cli.start(function(command) {
 	console.log('>', command);
 	switch(command[0]) {
