@@ -5,7 +5,7 @@
 		"childs": [
 			{
 				"command": "application",
-				"aliases": [ "app", "porject", "site" ]
+				"aliases": [ "porject", "site" ]
 			},
 			{
 				"command": "component",

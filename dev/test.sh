@@ -1,2 +1,2 @@
 #!/bin/bash
-babel src --out-dir lib && node index.js
+babel src --out-dir lib && clear && node index.js

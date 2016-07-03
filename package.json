@@ -25,9 +25,10 @@
   "homepage": "https://github.com/inless/cli#readme",
   "dependencies": {
     "cli": "0.11.2",
-    "graceful-js": "1.0.0",
+    "colors": "^1.1.2",
     "damerau-levenshtein-git": "1.0.2",
     "git-download": "0.0.2",
+    "graceful-js": "1.0.0",
     "inquirer": "1.1.0",
     "ncp": "2.0.0",
     "request": "2.72.0",
@@ -35,8 +36,7 @@
     "unzip": "0.1.11"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-preset-es2016": "^6.11.0",
-    "babel-preset-react": "^6.11.1"
+    "babel-cli": "6.10.1",
+    "babel-preset-es2015": "6.9.0"
   }
 }
