@@ -13,6 +13,7 @@ let cli = new CLI(configs);
 let actions = new Actions();
 
 actions.use(require('./actions/unpack.js'));
+actions.use(require('./actions/npm.js'));
 
 let handler;
 
@@ -39,7 +40,7 @@ let handler;
 			}).then(({type})=> {
 				handler(`init ${type}`);
 			}).catch(error=> {
-				console.log(error);
+				UI.log(error);
 			});
 		} break;
 		case 'init application':
@@ -49,15 +50,22 @@ let handler;
 		case 'init plugin':
 		case 'init route':
 		case 'init ui-kit': {
+			UI.info('Copying files...');
 			actions.run('unpack', command.split(' ')[1], _to).then(data=> {
-				console.log('done.');
+				UI.info('Installation node modules...');
+				return actions.run('npm install', _to);
+			// }).then(data=> {
+			// 	UI.info('Installation inless dependencies...');
+			// 	return actions.run('npm install', _to);
+			}).then(data=> {
+				UI.log('done.');
 			});
 		} break;
 		default: {
 			if(command) {
-				console.log(`Wrong command: ${colors.inverse(command)}. Try again`);
+				UI.log(`Wrong command: ${colors.inverse(command)}. Try again`);
 			}
-			cli.getCommand(!command).then(handler).catch(error=>console.log(colors.bold(`${error}.`)));
+			cli.getCommand(!command).then(handler).catch(error=>UI.log(colors.bold(`${error}.`)));
 		}
 	}
 })();

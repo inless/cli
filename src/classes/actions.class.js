@@ -1,5 +1,6 @@
 
 import colors from 'colors';
+import UI from '../classes/ui.class.js';
 
 export default class Actions {
 	constructor() {
@@ -14,7 +15,7 @@ export default class Actions {
 	}
 	add(action = null, method = (function() {})) {
 		if(this._actions[action]) {
-			console.warn(`Conflict in action name: ${action}!`);
+			UI.warn(`Conflict in action name: ${action}!`);
 		}
 		if(action) {
 			return this._actions[action] = method;
@@ -23,7 +24,7 @@ export default class Actions {
 		}
 	}
 	run(action = null, ...params) {
-		console.log(colors.dim(`run task: "${action}", ${params.length ? 'with params: '+params.join(', ') : 'without params'}.`));
+		UI.log(colors.dim(`run task: "${action}", ${params.length ? 'with params: '+params.join(', ') : 'without params'}.`));
 		return new Promise((resolve, reject)=> {
 			if(typeof this._actions[action] !== 'function') {
 				reject('wrong action!');
@@ -32,7 +33,7 @@ export default class Actions {
 			}
 		}).catch((error)=> {
 			error = `in action "${action}" error: ${error}`;
-			console.error(colors.red(error));
+			UI.error(colors.red(error));
 			return Promise.reject(error);
 		});
 	}
