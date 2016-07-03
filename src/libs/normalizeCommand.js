@@ -10,7 +10,7 @@ export default function normalize(args = [], stack = []) {
 	} else {
 		var param = stack.map((e)=> {
 			var ret = e.aliases.concat([e.command]).map((e)=> {
-				var cmd = args[0];
+				var cmd = args[0].toLowerCase();
 				if(cmd.length < e.length) {
 					cmd += new Array(e.length - cmd.length).fill(' ').join('');
 				} else if(cmd.length > e.length) {

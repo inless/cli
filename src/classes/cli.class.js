@@ -65,7 +65,7 @@ export default class CLI {
 					if(answer) {
 						resolve(command);
 					} else {
-						reject('Canseled');
+						reject('Canceled');
 					}
 				})
 			} else {
