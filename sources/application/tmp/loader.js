@@ -1,22 +1,30 @@
 console.clear();
 
-
 // loading server data;
 let serverData = new Promise((resolve, reject)=> {
 	setTimeout(()=> {
 		resolve({a: Math.random()});
 	}, 1000);
-})
+});
 
 class inlessRoute extends React.Component {
 	constructor(props) {
 		super(props);
+		this.displayName = 'inless-route';
+		this.componentClassName = this.displayName;
+		this.loader = this.props.children;
 		this.__data = {};
-		serverData.then(data=> {
-			this.__data = data;this.forceUpdate();
+		this.onLoad = new Promise((resolve, reject)=> {
+			serverData.then(data=> {
+				this.__data = data;
+				resolve(data);
+			});
+		});
+		this.onLoad.then((data)=> {
+			this.loader = null;
+			this.forceUpdate();
 			return data;
 		});
-		this.displayName = 'inless-route';
 	}
 	getData(key) {
 		return this.__data[key];
@@ -37,7 +45,10 @@ class Route extends inlessRoute {
 	}
 	render() {
 		return (
-			<h1>Hello {this.getData('a')||this.state.a}!</h1>
+			<div className={this.componentClassName}>
+				{this.loader}
+				<h1>Hello {this.getData('a')||this.state.a}!</h1>
+			</div>
 		);
 	}
 }
@@ -46,14 +57,7 @@ class inlessLoader extends React.Component {
 	constructor(props) {
 		super(props);
 		this.displayName = 'inless-loader';
-		this.onLoad = new Promise((resolve, reject)=> {
-			serverData.then(data=> {
-				resolve(data);
-			});
-		});
-	}
-	getCurrentRoute() {
-		return <Route/>;
+		this.componentClassName = this.displayName;
 	}
 	render() {
 		return (
@@ -67,30 +71,15 @@ class inlessLoader extends React.Component {
 class Loader extends inlessLoader {
 	render() {
 		return (
-			<div>
+			<div className={this.componentClassName}>
 				Loading...
-				<br/>
-				{this.getCurrentRoute()}
 			</div>
 		);
 	}
 }
 
-class L extends Loader {
-	constructor(props) {
-		super(props);
-		this.__loaded = false;
-		this.onLoad.then((e)=> {
-			this.__loaded = true;
-			this.forceUpdate();
-		});
-	}
-	render() {
-		return this.__loaded ? this.getCurrentRoute() : super.render();
-	}
-}
 
 
-// <Layout><L/></Layout>
-ReactDOM.render(<L/>, document.getElementById('layout'));
+// <Layout><Route><Loader/></Route></Layout>
+ReactDOM.render(<Route><Loader/></Route>, document.getElementById('layout'));
 

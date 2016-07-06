@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {Plugins, Components, logger} from 'inless';
+import React from 'react';
+import {Plugins, Components, logger, Route} from 'inless';
 
 // let myPlugin = new Plugin('my-plugin');
 // let myComponents = new Components('my-components');
 
-export default class Route extends Component {
+export default class Page extends Route {
 	render() {
 		logger.debug(`Rendering ${this.displayName}`);
 		return (
 			<section>
-				<sectipn>
+				<section>
 					<h2>{this.displayName}</h2>
 				</section>
 				<aside></aside>

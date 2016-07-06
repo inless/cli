@@ -1,7 +1,9 @@
 export default function(req, res) {
-	res.setData('session.status', req.session.status);
-	res.setData('session.id', req.session.id);
-	res.setData('url.params', req.params);
-	res.setData('url.query', req.query);
+	res.setData({
+		session_id: req.session.id,
+		session_status: req.session.status,
+		url_params: req.params,
+		url_query: req.query
+	});
 	res.next();
 }

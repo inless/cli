@@ -7,14 +7,14 @@ export default {
 			<main role="application">
 				<header>
 					<h1>inLess Application</h1>
-					<pre>{JSON.stringify(this.state, true, '	')}</pre>
+					<pre>{JSON.stringify(this.getData(), true, '	')}</pre>
 				</header>
 				{this.props.children}
 				<footer>
 					<hr/>
-					<div>
+					<section>
 						All rights save &copy;
-					</div>
+					</section>
 				</footer>
 			</main>
 		);
