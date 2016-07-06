@@ -24,7 +24,7 @@ export default class Actions {
 		}
 	}
 	run(action = null, ...params) {
-		UI.log(colors.dim(`run task: "${action}", ${params.length ? 'with params: '+params.join(', ') : 'without params'}.`));
+		UI.debug(colors.dim(`run task: "${action}", ${params.length ? 'with params: '+params.join(', ') : 'without params'}.`));
 		return new Promise((resolve, reject)=> {
 			if(typeof this._actions[action] !== 'function') {
 				reject('wrong action!');

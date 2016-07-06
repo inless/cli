@@ -59,6 +59,8 @@ let handler;
 			// 	return actions.run('npm install', _to);
 			}).then(data=> {
 				UI.log('done.');
+			}).catch(error=> {
+				UI.error(error);
 			});
 		} break;
 		default: {
